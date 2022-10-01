@@ -10,7 +10,7 @@ export default async function handler(
   const { id } = req.query;
   if (req.method === "POST") {
     await prisma.submission.update({
-      where: { id },
+      where: { id: Array.isArray(id) ? id[0] : id },
       data: { favorite: true },
     });
 
