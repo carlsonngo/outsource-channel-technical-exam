@@ -2,12 +2,13 @@ import {
   Favorite as FavoriteIcon,
   FavoriteBorder as FavoriteBorderIcon,
 } from "@mui/icons-material";
-import type { CardProps } from "@mui/material";
 import {
   Card,
   CardActions,
   CardContent,
   CardHeader,
+  CardProps,
+  CircularProgress,
   Divider,
   IconButton,
   Link,
@@ -42,7 +43,7 @@ const SubmissionCard = ({
 
   const filters = useContext(FilterContext);
 
-  const { mutate: like } = useMutation(
+  const { mutate: like, isLoading: isLiking } = useMutation(
     () => axios.post(`/api/favorites/${id}`),
     {
       onSuccess: () => {
@@ -61,7 +62,7 @@ const SubmissionCard = ({
     }
   );
 
-  const { mutate: unlike } = useMutation(
+  const { mutate: unlike, isLoading: isUnliking } = useMutation(
     () => axios.delete(`/api/favorites/${id}`),
     {
       onSuccess: () => {
@@ -98,19 +99,24 @@ const SubmissionCard = ({
         <Typography variant="overline">
           {score} vote{score > 1 && "s"}
         </Typography>
-        {canLike && (
-          <>
-            {favorite ? (
-              <IconButton key="1" onClick={() => unlike()} color="error">
-                <FavoriteIcon />
-              </IconButton>
-            ) : (
-              <IconButton key="0" onClick={() => like()}>
-                <FavoriteBorderIcon />
-              </IconButton>
-            )}
-          </>
-        )}
+        {canLike &&
+          (isLiking || isUnliking ? (
+            <IconButton key="loading">
+              <CircularProgress variant="indeterminate" size={24} />
+            </IconButton>
+          ) : (
+            <>
+              {favorite ? (
+                <IconButton key="1" onClick={() => unlike()} color="error">
+                  <FavoriteIcon />
+                </IconButton>
+              ) : (
+                <IconButton key="0" onClick={() => like()}>
+                  <FavoriteBorderIcon />
+                </IconButton>
+              )}
+            </>
+          ))}
         {/* </Box> */}
       </CardActions>
     </Card>

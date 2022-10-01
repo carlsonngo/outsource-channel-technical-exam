@@ -1,5 +1,4 @@
-import type { StackProps } from "@mui/material";
-import { Stack } from "@mui/material";
+import { CircularProgress, Stack, StackProps } from "@mui/material";
 import type { UseQueryResult } from "@tanstack/react-query";
 import { useContext } from "react";
 import { FilterContext } from "../contexts/FilterContext";
@@ -16,24 +15,28 @@ const SubmissionList = ({
   canLike?: boolean;
 } & StackProps) => {
   const filters = useContext(FilterContext);
-  const { data } = query(queryKey, filters);
+  const { data, isLoading } = query(queryKey, filters);
 
   return (
     <Stack spacing={2} {...props}>
       {/* can possibly contain count/pagination values */}
-      {data?.data?.map((d: any) => (
-        <SubmissionCard
-          key={d.id}
-          id={d.id}
-          title={d.title}
-          fullLink={d.full_link}
-          selfText={d.selftext}
-          score={d.score}
-          favorite={d.favorite}
-          canLike={canLike}
-          queryKey={queryKey}
-        />
-      ))}
+      {isLoading ? (
+        <CircularProgress variant="indeterminate" />
+      ) : (
+        data?.data?.map((d: any) => (
+          <SubmissionCard
+            key={d.id}
+            id={d.id}
+            title={d.title}
+            fullLink={d.full_link}
+            selfText={d.selftext}
+            score={d.score}
+            favorite={d.favorite}
+            canLike={canLike}
+            queryKey={queryKey}
+          />
+        ))
+      )}
     </Stack>
   );
 };
