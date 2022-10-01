@@ -46,7 +46,6 @@ const SubmissionCard = ({
     () => axios.post(`/api/favorites/${id}`),
     {
       onSuccess: () => {
-        console.log([queryKey, filters]);
         queryClient.setQueryData([queryKey, filters], (_data: any = {}) => {
           const _newData = [...(_data?.data || [])];
 
