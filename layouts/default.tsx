@@ -10,17 +10,17 @@ const DefaultLayout = ({ children }: any) => {
 
   return (
     <FilterContext.Provider value={filters}>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
+        <FilterRow
+          filters={filters}
+          onFilterChange={setFilters}
+          sx={{ justifyContent: { xs: "flex-start", md: "flex-end" } }}
+        />
+      </AppBar>
       <Box display="flex">
-        <AppBar
-          position="fixed"
-          sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        >
-          <FilterRow
-            filters={filters}
-            onFilterChange={setFilters}
-            sx={{ justifyContent: "flex-end" }}
-          />
-        </AppBar>
         <DrawerNav />
         <Box
           component="main"
@@ -29,6 +29,7 @@ const DefaultLayout = ({ children }: any) => {
             p: 2,
             backgroundColor: grey[50],
             minHeight: "100vh",
+            overflowY: "hidden",
           }}
         >
           <Toolbar />

@@ -9,7 +9,7 @@ const Favorites: NextPage = () => {
   return (
     <Layout>
       <SubmissionList
-        sx={{ p: 4, flex: 1 }}
+        sx={{ flex: 1 }}
         canLike
         query={useFavorites}
         queryKey="favorites"

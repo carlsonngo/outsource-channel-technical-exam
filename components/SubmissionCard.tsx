@@ -85,13 +85,31 @@ const SubmissionCard = ({
     <Card {...props}>
       <CardHeader
         title={title}
-        subheader={<Link href={fullLink}>{fullLink}</Link>}
+        sx={{ ["& .MuiCardHeader-content"]: { width: "100%" } }}
+        subheader={
+          <Link href={fullLink} target="_blank">
+            {fullLink}
+          </Link>
+        }
+        titleTypographyProps={{
+          sx: {
+            overflowWrap: "break-word",
+          },
+        }}
+        subheaderTypographyProps={{
+          variant: "caption",
+          sx: {
+            overflowWrap: "break-word",
+          },
+        }}
       />
       {selfText?.length > 0 && (
         <>
           <Divider />
           <CardContent>
-            <Typography>{selfText}</Typography>
+            <Typography variant="body2" sx={{ overflowWrap: "break-word" }}>
+              {selfText}
+            </Typography>
           </CardContent>
         </>
       )}

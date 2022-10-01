@@ -44,11 +44,9 @@ const DrawerNav = ({ sx = [], ...props }: DrawerProps) => {
         variant="permanent"
         sx={[
           {
-            minWidth: 0,
-            width: { sx: 32, md: 200 },
+            width: { xs: 64, md: 200 },
             [`& .MuiDrawer-paper`]: {
-              minWidth: 0,
-              width: { sx: 32, md: 200 },
+              width: { xs: 64, md: 200 },
               boxSizing: "border-box",
             },
           },
@@ -65,7 +63,7 @@ const DrawerNav = ({ sx = [], ...props }: DrawerProps) => {
               <Link href={route.href} key={route.href}>
                 <ListItemButton
                   sx={[
-                    { px: 4 },
+                    { px: { xs: 2, md: 4 } },
                     active && {
                       backgroundColor: "primary.main",
                       color: "primary.contrastText",
