@@ -17,7 +17,7 @@ export default async function handler(
     res.status(201).end();
   } else if (req.method === "DELETE") {
     await prisma.submission.update({
-      where: { id },
+      where: { id: Array.isArray(id) ? id[0] : id },
       data: { favorite: false },
     });
 
