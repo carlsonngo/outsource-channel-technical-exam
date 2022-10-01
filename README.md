@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Requirements:
 
-## Getting Started
+1. Create a service to fetch submission data from pushshift api from any subreddit you like
+2. Create a react app that uses the pushshift service you built and display a list of reddit submissions
+3. Use Material UI and be sure to make your components modular and easy to read and maintainable for the future (an entire application written in one page will not be accepted)_bonus_
+4. Spin up a database of your choice (postgresql would be a plus if you know it)
+5. Create 1 table (submission) don't need to store all the data just get id, upvotes/downvotes and the link or text from the post
+6. Fill up the database with data from the api
+7. Allow a user to create a favorite list with the data you have collected
+8. Once done, please upload it on github.
 
-First, run the development server:
+Notes:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- Please use the `/api/scrape` endpoint to test #1. Required query params: `subreddit`. Optional query params: `size`. Other parameters are not exposed.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Framework:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- NextJS (Hosted on Vercel)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+Database:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- PostgreSQL
 
-## Learn More
+3rd party utilities used:
 
-To learn more about Next.js, take a look at the following resources:
+- react-query (for query state management and caching)
+- axios (for data fetching & automatic JSON serialization)
+- moment (for timestamp formatting in UI)
+- lodash (for convenience functions)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Assumptions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- No UI/UX provided. Base MaterialUI components are used. No theme overrides
+- Pagination is not implemented as this should be implemented in the backend. Do let me know if this is part of the requirement.
+- No user authentication needed - data is shared among all users using the app
+- Service/DAO layer skipped, all logic implemented inside controllers considering the small scope
+- Single commit message at the start is intentional due to the small scope. Separate commit messages can be requested should it be needed
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- On live app, due to current postgresql constraints, scraper might run a bit slow since we're only using 1 connection due to the limit imposed by the free postgresql server
